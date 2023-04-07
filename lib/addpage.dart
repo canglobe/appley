@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class Add_Newone extends StatefulWidget {
   const Add_Newone({super.key});
@@ -8,7 +9,9 @@ class Add_Newone extends StatefulWidget {
 }
 
 class _Add_NewoneState extends State<Add_Newone> {
-  final namecontroller = TextEditingController();
+  final namecontroller = TextEditingController(text: "Name");
+  final numbercontroller = TextEditingController(text: "Mobile Number");
+  final relationcontroller = TextEditingController(text: "Relationship");
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
@@ -18,8 +21,9 @@ class _Add_NewoneState extends State<Add_Newone> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Enter Name Here"),
+                Text(" Enter Name Here"),
                 Padding(
                   padding: const EdgeInsets.all(9),
                   child: CupertinoTextField(
@@ -28,9 +32,13 @@ class _Add_NewoneState extends State<Add_Newone> {
                 ),
               ],
             ),
+            SizedBox(
+              height: 23,
+            ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Enter Number Here"),
+                Text(" Enter Number Here"),
                 Padding(
                   padding: const EdgeInsets.all(9),
                   child: CupertinoTextField(
@@ -38,6 +46,9 @@ class _Add_NewoneState extends State<Add_Newone> {
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 23,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
