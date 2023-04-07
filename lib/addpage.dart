@@ -18,6 +18,7 @@ class _Add_NewoneState extends State<Add_Newone> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Enter Name Here"),
                 Padding(
@@ -29,6 +30,7 @@ class _Add_NewoneState extends State<Add_Newone> {
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Enter Number Here"),
                 Padding(
