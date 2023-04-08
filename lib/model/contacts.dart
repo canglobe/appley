@@ -15,6 +15,4 @@ class Contacts {
 
   @HiveField(3)
   late String relationship;
-
-  void delete() {}
 }

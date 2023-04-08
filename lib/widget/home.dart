@@ -1,34 +1,37 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
-
-import 'package:appley/widget/addpage.dart';
-import 'package:appley/boxes.dart';
-import 'package:appley/model/contacts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:appley/boxes.dart';
+import 'package:appley/model/contacts.dart';
+import 'package:appley/widget/addpage.dart';
 
-class My_appley extends StatefulWidget {
-  const My_appley({super.key});
-
+class Myappley extends StatefulWidget {
   @override
-  State<My_appley> createState() => _My_appleyState();
+  State<Myappley> createState() => _MyappleyState();
 }
 
-class _My_appleyState extends State<My_appley> {
-  // @override
-  // void dispose() {
-  //   Hive.close();
-  //   super.dispose();
-  // }
+class _MyappleyState extends State<Myappley> {
+  @override
+  void dispose() {
+    Hive.close();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          leading: Icon(CupertinoIcons.airplane),
+          leading: GestureDetector(
+            child: Icon(CupertinoIcons.airplane),
+            onTap: () {
+              //
+            },
+          ),
           middle: Text(" WELCOME TO APPLEY"),
           trailing: CupertinoButton(
             child: Icon(Icons.add),
@@ -38,7 +41,7 @@ class _My_appleyState extends State<My_appley> {
             },
           ),
         ),
-        child: ValueListenableBuilder(
+        child: ValueListenableBuilder<Box<Contacts>>(
             valueListenable: Boxes.getContacts().listenable(),
             builder: (context, box, _) {
               final contacts = box.values.toList().cast<Contacts>();
@@ -72,14 +75,19 @@ class _My_appleyState extends State<My_appley> {
               padding: EdgeInsets.all(8),
               itemCount: contacts.length,
               itemBuilder: (BuildContext context, int index) {
-                final transaction = contacts[index];
-                return Column(
-                  children: [
-                    Text(transaction.name),
-                    Image.file(
-                      File(transaction.image_path),
-                    ),
-                  ],
+                final contact = contacts[index];
+                return GestureDetector(
+                  onLongPress: () {
+                    deleteContacts(contact);
+                  },
+                  child: Column(
+                    children: [
+                      Text(contact.name),
+                      Image.file(
+                        File(contact.image_path),
+                      ),
+                    ],
+                  ),
                 );
               },
               gridDelegate:
@@ -91,12 +99,30 @@ class _My_appleyState extends State<My_appley> {
     }
   }
 
-  void deleteTransaction(Contacts contacts) {
-    // final box = Boxes.getTransactions();
-    // box.delete(transaction.key);
+  void editTransaction(
+    Contacts contacts,
+    String image_path,
+    String name,
+    int phone_number,
+    String relationship,
+  ) {
+    contacts.name = name;
+    contacts.phone_number = phone_number;
+    contacts.relationship = relationship;
 
-    contacts.delete();
-    //setState(() => transactions.remove(transaction));
+    // final box = Boxes.getTransactions();
+    // box.put(transaction.key, transaction);
+
+    contacts.save();
+  }
+
+  void deleteContacts(Contacts contacts) {
+    // final box = Boxes.getContactss();
+    // box.delete(Contacts.key);
+    print(contacts.name);
+    // contacts.delete();
+
+    //setState(() => Contactss.remove(Contacts));
   }
 }
 
