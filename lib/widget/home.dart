@@ -113,7 +113,7 @@ class _MyappleyState extends State<Myappley> {
     // final box = Boxes.getTransactions();
     // box.put(transaction.key, transaction);
 
-    contacts.save();
+    // contacts.save();
   }
 
   void deleteContacts(Contacts contacts) {

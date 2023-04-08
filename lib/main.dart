@@ -30,7 +30,7 @@ class _MyappState extends State<Myapp> {
   Widget build(BuildContext context) {
     return CupertinoApp(
       debugShowCheckedModeBanner: false,
-      home: My_appley(),
+      home: Myappley(),
     );
   }
 }
