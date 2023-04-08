@@ -1,7 +1,20 @@
-import 'package:appley/home.dart';
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: prefer_const_constructors
 
-void main(List<String> args) {
+import 'package:appley/model/contacts.dart';
+import 'package:appley/widget/home.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(ContactsAdapter());
+
+  await Hive.openBox<Contacts>("CONTACTS");
+
   runApp(Myapp());
 }
 
