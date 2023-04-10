@@ -13,7 +13,7 @@ void main(List<String> args) async {
 
   Hive.registerAdapter(ContactsAdapter());
 
-  await Hive.openBox<Contacts>("CONTACTS");
+  await Hive.openBox<Contacts>("contacts");
 
   runApp(Myapp());
 }

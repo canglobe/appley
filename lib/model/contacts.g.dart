@@ -16,11 +16,12 @@ class ContactsAdapter extends TypeAdapter<Contacts> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Contacts()
-      ..image_path = fields[0] as String
-      ..name = fields[1] as String
-      ..phone_number = fields[2] as int
-      ..relationship = fields[3] as String;
+    return Contacts(
+      imagepath: fields[0] as String,
+      name: fields[1] as String,
+      number: fields[2] as int,
+      relative: fields[3] as String,
+    );
   }
 
   @override
@@ -28,13 +29,13 @@ class ContactsAdapter extends TypeAdapter<Contacts> {
     writer
       ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.image_path)
+      ..write(obj.imagepath)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.phone_number)
+      ..write(obj.number)
       ..writeByte(3)
-      ..write(obj.relationship);
+      ..write(obj.relative);
   }
 
   @override

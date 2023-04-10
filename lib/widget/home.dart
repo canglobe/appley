@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -28,8 +29,12 @@ class _MyappleyState extends State<Myappley> {
         navigationBar: CupertinoNavigationBar(
           leading: GestureDetector(
             child: Icon(CupertinoIcons.airplane),
-            onTap: () {
+            onTap: () async {
               //
+              bool val = await Hive.boxExists("CONTACTS");
+              print(val);
+              var box = Hive.box("CONTACTS");
+              box.clear();
             },
           ),
           middle: Text(" WELCOME TO APPLEY"),
@@ -78,13 +83,13 @@ class _MyappleyState extends State<Myappley> {
                 final contact = contacts[index];
                 return GestureDetector(
                   onLongPress: () {
-                    deleteContacts(contact);
+                    //
                   },
                   child: Column(
                     children: [
                       Text(contact.name),
                       Image.file(
-                        File(contact.image_path),
+                        File(contact.imagepath),
                       ),
                     ],
                   ),
@@ -101,26 +106,26 @@ class _MyappleyState extends State<Myappley> {
 
   void editTransaction(
     Contacts contacts,
-    String image_path,
+    String imagepath,
     String name,
-    int phone_number,
+    int phonenumber,
     String relationship,
   ) {
     contacts.name = name;
-    contacts.phone_number = phone_number;
-    contacts.relationship = relationship;
+    contacts.number = phonenumber;
+    contacts.relative = relationship;
 
     // final box = Boxes.getTransactions();
     // box.put(transaction.key, transaction);
 
-    // contacts.save();
+    contacts.save();
   }
 
-  void deleteContacts(Contacts contacts) {
-    // final box = Boxes.getContactss();
+  void deleteContacts(Contacts contact) {
+    // final box = Boxes.getContacts();
     // box.delete(Contacts.key);
-    print(contacts.name);
-    // contacts.delete();
+
+    contact.delete();
 
     //setState(() => Contactss.remove(Contacts));
   }

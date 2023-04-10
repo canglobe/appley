@@ -3,16 +3,23 @@ import 'package:hive/hive.dart';
 part 'contacts.g.dart';
 
 @HiveType(typeId: 0)
-class Contacts {
+class Contacts extends HiveObject {
   @HiveField(0)
-  late String image_path;
+  late String imagepath;
 
   @HiveField(1)
   late String name;
 
   @HiveField(2)
-  late int phone_number;
+  late int number;
 
   @HiveField(3)
-  late String relationship;
+  late String relative;
+
+  Contacts({
+    required String imagepath,
+    required String name,
+    required int number,
+    relative = '',
+  });
 }

@@ -127,7 +127,7 @@ class _Add_NewoneState extends State<Add_Newone> {
                   child: Text("ADD CONTACT"),
                   onPressed: () {
                     _copyImage(namecontroller.text.trim());
-                    add_contact(
+                    addcontact(
                         image!.path,
                         namecontroller.text.trim(),
                         int.parse(numbercontroller.text.trim()),
@@ -191,13 +191,13 @@ class _Add_NewoneState extends State<Add_Newone> {
     return resizedFile;
   }
 
-  add_contact(
-      String image_path, String name, int phone_number, String relation) {
-    final contacts = Contacts()
-      ..image_path = image_path
-      ..name = name
-      ..phone_number = phone_number
-      ..relationship = relation;
+  addcontact(String imagepath, String name, int phonenumber, String relation) {
+    final contacts = Contacts(
+      imagepath: imagepath,
+      name: name,
+      number: phonenumber,
+      relative: relation,
+    );
 
     final box = Boxes.getContacts();
     box.add(contacts);
