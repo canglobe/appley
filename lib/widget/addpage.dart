@@ -2,29 +2,26 @@
 
 import 'dart:io' as Io;
 
-import 'package:appley/boxes.dart';
-import 'package:appley/model/contacts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
-
 import 'package:path_provider/path_provider.dart';
 
-import 'package:image/image.dart' as img;
-import 'package:hive/hive.dart';
+import 'package:appley/boxes.dart';
+import 'package:appley/model/contacts.dart';
 
-// import 'package:image/image.dart' as IM;
-
-class Add_Newone extends StatefulWidget {
-  const Add_Newone({super.key});
+//------------------------------------------------------------------------------//
+class AddContact extends StatefulWidget {
+  const AddContact({super.key});
 
   @override
-  State<Add_Newone> createState() => _Add_NewoneState();
+  State<AddContact> createState() => _AddContactState();
 }
 
-class _Add_NewoneState extends State<Add_Newone> {
+class _AddContactState extends State<AddContact> {
   final namecontroller = TextEditingController();
   final numbercontroller = TextEditingController();
   final relationcontroller = TextEditingController();
@@ -122,12 +119,13 @@ class _Add_NewoneState extends State<Add_Newone> {
               SizedBox(
                 height: 25,
               ),
+              //---------------------------------------------------------------
 
               CupertinoButton(
                   child: Text("ADD CONTACT"),
                   onPressed: () {
                     _copyImage(namecontroller.text.trim());
-                    addcontact(
+                    addContact(
                         image!.path,
                         namecontroller.text.trim(),
                         int.parse(numbercontroller.text.trim()),
@@ -144,6 +142,7 @@ class _Add_NewoneState extends State<Add_Newone> {
     );
   }
 
+  // Pick the Image from Local Storage in Device
   Future pickImage() async {
     try {
       final img = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -156,6 +155,7 @@ class _Add_NewoneState extends State<Add_Newone> {
     }
   }
 
+  // Pick the Image From Device Camera
   Future pickCamera() async {
     try {
       final img = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -168,6 +168,7 @@ class _Add_NewoneState extends State<Add_Newone> {
     }
   }
 
+  // Copy image for resize
   Future<void> _copyImage(name) async {
     final directory = await getExternalStorageDirectory();
     final imagePath = '${directory!.path}/$name.jpg';
@@ -178,6 +179,7 @@ class _Add_NewoneState extends State<Add_Newone> {
     });
   }
 
+  // This is Image Resize Class
   Future<Io.File> _resizeImage(Io.File file, int width, int height) async {
     final imageBytes = await file.readAsBytes();
     final originalImage = img.decodeImage(imageBytes);
@@ -191,7 +193,8 @@ class _Add_NewoneState extends State<Add_Newone> {
     return resizedFile;
   }
 
-  addcontact(String imagepath, String name, int phonenumber, String relation) {
+  // Add the Contact in Hive Object
+  addContact(String imagepath, String name, int phonenumber, String relation) {
     final contacts = Contacts(
       imagepath: imagepath,
       name: name,
@@ -203,6 +206,7 @@ class _Add_NewoneState extends State<Add_Newone> {
     box.add(contacts);
   }
 
+  // Finally Add the Contact Popout To Homescreen
   popout() {
     Navigator.pop(context);
   }

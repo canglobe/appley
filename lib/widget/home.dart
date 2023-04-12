@@ -6,11 +6,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:appley/boxes.dart';
 import 'package:appley/model/contacts.dart';
 import 'package:appley/widget/addpage.dart';
 
 class Myappley extends StatefulWidget {
+  const Myappley({super.key});
+
   @override
   State<Myappley> createState() => _MyappleyState();
 }
@@ -19,7 +22,6 @@ class _MyappleyState extends State<Myappley> {
   @override
   void dispose() {
     Hive.close();
-
     super.dispose();
   }
 
@@ -42,7 +44,7 @@ class _MyappleyState extends State<Myappley> {
             child: Icon(Icons.add),
             onPressed: () {
               Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => Add_Newone()));
+                  CupertinoPageRoute(builder: (context) => AddContact()));
             },
           ),
         ),
@@ -104,7 +106,7 @@ class _MyappleyState extends State<Myappley> {
     }
   }
 
-  void editTransaction(
+  void editContacts(
     Contacts contacts,
     String imagepath,
     String name,
@@ -115,42 +117,10 @@ class _MyappleyState extends State<Myappley> {
     contacts.number = phonenumber;
     contacts.relative = relationship;
 
-    // final box = Boxes.getTransactions();
-    // box.put(transaction.key, transaction);
-
     contacts.save();
   }
 
   void deleteContacts(Contacts contact) {
-    // final box = Boxes.getContacts();
-    // box.delete(Contacts.key);
-
     contact.delete();
-
-    //setState(() => Contactss.remove(Contacts));
   }
 }
-
-
-// SafeArea(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.start,
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.all(5),
-//               child: CupertinoTextField(),
-//             ),
-//             Divider(),
-//             Expanded(
-//               child: GridView.builder(
-//                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                       crossAxisCount: 4),
-//                   itemCount: 9,
-//                   itemBuilder: (context, index) {
-//                     return Card();
-//                   }),
-//             )
-//           ],
-//         ),
-//       ),
-    
