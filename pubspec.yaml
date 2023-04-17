@@ -16,6 +16,9 @@ dependencies:
   hive: ^2.0.3
   hive_flutter: ^1.0.0
   image: ^4.0.15
+  flutter_dialpad: ^1.0.5
+  intl: ^0.18.0
+  
   
 dev_dependencies:
   flutter_test:

@@ -115,7 +115,6 @@ class _MyappleyState extends State<Myappley> {
   ) {
     contacts.name = name;
     contacts.number = phonenumber;
-    contacts.relative = relationship;
 
     contacts.save();
   }

@@ -13,13 +13,9 @@ class Contacts extends HiveObject {
   @HiveField(2)
   late int number;
 
-  @HiveField(3)
-  late String relative;
-
   Contacts({
-    required String imagepath,
-    required String name,
-    required int number,
-    relative = '',
+    required this.imagepath,
+    required this.name,
+    required this.number,
   });
 }

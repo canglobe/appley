@@ -24,7 +24,6 @@ class AddContact extends StatefulWidget {
 class _AddContactState extends State<AddContact> {
   final namecontroller = TextEditingController();
   final numbercontroller = TextEditingController();
-  final relationcontroller = TextEditingController();
 
   Io.File? image;
   @override
@@ -50,20 +49,24 @@ class _AddContactState extends State<AddContact> {
                   : SizedBox(
                       height: device_height / 3,
                       child: Icon(
-                        Icons.person,
-                        size: 300,
+                        CupertinoIcons.person_alt,
+                        size: 270,
                       ),
                     ),
               //--------------------------------------------------------------
+              Divider(),
               Column(
                 children: [
                   CupertinoButton.filled(
-                      child: Text("Select photo"),
+                      child: Text("GALLERY"),
                       onPressed: () {
                         pickImage();
                       }),
+                  SizedBox(
+                    height: 5,
+                  ),
                   CupertinoButton.filled(
-                      child: Text("Select photo"),
+                      child: Text("CAMERA "),
                       onPressed: () {
                         // pickImage();
                         pickCamera();
@@ -86,7 +89,6 @@ class _AddContactState extends State<AddContact> {
               ),
 
               //------------------------------------------------------------
-              Divider(),
 
               Padding(
                 padding: const EdgeInsets.all(9),
@@ -97,24 +99,8 @@ class _AddContactState extends State<AddContact> {
                   keyboardType: TextInputType.phone,
                 ),
               ),
-
+              Divider(),
               //-----------------------------------------------------------
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Text("  Enter Relationship Here"),
-                  Divider(),
-                  Padding(
-                    padding: const EdgeInsets.all(9),
-                    child: CupertinoTextField(
-                      prefix: Text(" Relation"),
-                      controller: relationcontroller,
-                      placeholder: "Enter Relationship Here",
-                      keyboardType: TextInputType.text,
-                    ),
-                  ),
-                ],
-              ),
 
               SizedBox(
                 height: 25,
@@ -122,14 +108,22 @@ class _AddContactState extends State<AddContact> {
               //---------------------------------------------------------------
 
               CupertinoButton(
-                  child: Text("ADD CONTACT"),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        CupertinoIcons.add,
+                      ),
+                      Text(" ADD CONTACT"),
+                    ],
+                  ),
                   onPressed: () {
                     _copyImage(namecontroller.text.trim());
                     addContact(
-                        image!.path,
-                        namecontroller.text.trim(),
-                        int.parse(numbercontroller.text.trim()),
-                        relationcontroller.text.trim());
+                      image!.path,
+                      namecontroller.text.trim(),
+                      int.parse(numbercontroller.text.trim()),
+                    );
                     popout();
                   }),
               SizedBox(
@@ -194,12 +188,15 @@ class _AddContactState extends State<AddContact> {
   }
 
   // Add the Contact in Hive Object
-  addContact(String imagepath, String name, int phonenumber, String relation) {
+  addContact(
+    String imagepath,
+    String name,
+    int phonenumber,
+  ) {
     final contacts = Contacts(
       imagepath: imagepath,
       name: name,
       number: phonenumber,
-      relative: relation,
     );
 
     final box = Boxes.getContacts();

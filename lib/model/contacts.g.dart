@@ -20,7 +20,6 @@ class ContactsAdapter extends TypeAdapter<Contacts> {
       imagepath: fields[0] as String,
       name: fields[1] as String,
       number: fields[2] as int,
-      relative: fields[3] as String,
     );
   }
 
@@ -33,9 +32,7 @@ class ContactsAdapter extends TypeAdapter<Contacts> {
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.number)
-      ..writeByte(3)
-      ..write(obj.relative);
+      ..write(obj.number);
   }
 
   @override
